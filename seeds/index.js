@@ -27,6 +27,8 @@ const seedDB = async () => {
       ville: `${cities[random7].city}`,
       nom: `${sample(names.name)}`,
       adresse: `${sample(adresses.adress)}`,
+      image: "http://www.hamonic-masson.com/IMG/jpg/001_takuji_shimmura.jpg",
+      description: "lorem ipsum",
     });
     await mm.save();
   }

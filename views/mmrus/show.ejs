@@ -1,7 +1,8 @@
 <% layout('layouts/boilerplate')%>
     <h1><%= mmru.nom%></h1>
     <h2><%= mmru.ville%>, <%= mmru.adresse%></h2>
-   
+    <img src="<%= mmru.image%>" alt="">
+    <p><%= mmru.description%></p>
         <p>
             <a href="/mmrus/<%= mmru._id%>/edit">Editer</a>
         </p>

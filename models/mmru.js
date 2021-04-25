@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const MmruSchema = new Schema({
   ville: String,
+  image: String,
   adresse: String,
   nom: String,
   description: String,
