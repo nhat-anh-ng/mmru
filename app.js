@@ -2,11 +2,12 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
-const { mmruSchema } = require("./schemas.js");
+const { mmruSchema, reviewSchema } = require("./schemas.js");
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
 const Mmru = require("./models/mmru");
+const Review = require("./models/review");
 
 mongoose.connect("mongodb://localhost:27017/mmru", {
   useNewUrlParser: true,
@@ -31,6 +32,16 @@ app.use(methodOverride("_method"));
 
 const validateMmru = (req, res, next) => {
   const { error } = mmruSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
+  }
+};
+
+const validateReview = (req, res, next) => {
+  const { error } = reviewSchema.validate(req.body);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);
@@ -70,7 +81,7 @@ app.post(
 app.get(
   "/mmrus/:id",
   catchAsync(async (req, res) => {
-    const mmru = await Mmru.findById(req.params.id);
+    const mmru = await Mmru.findById(req.params.id).populate("avis");
     res.render("mmrus/show", { mmru });
   })
 );
@@ -99,6 +110,29 @@ app.delete(
     const { id } = req.params;
     await Mmru.findByIdAndDelete(id);
     res.redirect("/mmrus");
+  })
+);
+
+app.post(
+  "/mmrus/:id/reviews",
+  validateReview,
+  catchAsync(async (req, res) => {
+    const mmru = await Mmru.findById(req.params.id);
+    const review = new Review(req.body.review);
+    mmru.avis.push(review);
+    await review.save();
+    await mmru.save();
+    res.redirect(`/mmrus/${mmru._id}`);
+  })
+);
+
+app.delete(
+  "/mmrus/:id/reviews/:reviewId",
+  catchAsync(async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Mmru.findByIdAndUpdate(id, { $pull: { avis: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/mmrus/${id}`);
   })
 );
 
