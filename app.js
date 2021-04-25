@@ -59,7 +59,7 @@ app.put("/mmrus/:id", async (req, res) => {
   res.redirect(`/mmrus/${mmru._id}`);
 });
 
-app.delete("mmrus/:id", async (req, res) => {
+app.delete("/mmrus/:id", async (req, res) => {
   const { id } = req.params;
   await Mmru.findByIdAndDelete(id);
   res.redirect("/mmrus");
