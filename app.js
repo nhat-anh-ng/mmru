@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 const Mmru = require("./models/mmru");
 
 mongoose.connect("mongodb://localhost:27017/mmru", {
@@ -20,14 +21,44 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+
 app.get("/", (req, res) => {
   res.render("home");
 });
-app.get("/makemmru", async (req, res) => {
-  const mmru = new Mmru({ ville: "Paris", adresse: "123RueAbeil" });
-  await mmru.save();
-  res.send(mmru);
+
+app.get("/mmrus", async (req, res) => {
+  const mmrus = await Mmru.find({});
+  res.render("mmrus/index", { mmrus });
 });
+
+app.get("/mmrus/new", (req, res) => {
+  res.render("mmrus/new");
+});
+
+app.post("/mmrus", async (req, res) => {
+  const mmru = new Mmru(req.body.mmru);
+  await mmru.save();
+  res.redirect(`/mmrus/${mmru._id}`);
+});
+
+app.get("/mmrus/:id", async (req, res) => {
+  const mmru = await Mmru.findById(req.params.id);
+  res.render("mmrus/show", { mmru });
+});
+
+app.get("/mmrus/:id/edit", async (req, res) => {
+  const mmru = await Mmru.findById(req.params.id);
+  res.render("mmrus/edit", { mmru });
+});
+
+app.put("/mmrus/:id", async (req, res) => {
+  const { id } = req.params;
+  const mmru = await Mmru.findByIdAndUpdate(id, { ...req.body.mmru });
+  res.redirect(`/mmrus/${mmru._id}`);
+});
+
 app.listen(3000, () => {
   console.log("port 3000 here");
 });

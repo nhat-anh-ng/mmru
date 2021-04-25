@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+
+<body>
+    <h1>Editer la Résidence U</h1>
+    <form action="/mmrus/<%=mmru._id%>?_method=PUT" method="POST">
+        <div>
+            <label for="ville"></label>
+            <input type="text" name="mmru[ville]" id="ville" placeholder="Ville" value="<%= mmru.ville%>">
+        </div>
+        <div>
+            <label for="adresse"></label>
+            <input type="text" name="mmru[adresse]" id="adresse" placeholder="Adresse" value="<%= mmru.adresse%>">
+        </div>
+        <div>
+            <label for="nom"></label>
+            <input type="text" name="mmru[nom]" id="nom" placeholder="Nom" value="<%= mmru.nom%>">
+        </div>
+        <button>Mettre à jour</button>
+    </form>
+    <a href="/mmrus/<%= mmru._id%>">Retour</a>
+</body>
+
+</html>
