@@ -2,18 +2,21 @@
     <div class="row">
         <h1 class="text-center">Editer la Résidence U</h1>
         <div class="col-6 offset-3">
-        <form action="/mmrus/<%=mmru._id%>?_method=PUT" method="POST">
+        <form action="/mmrus/<%=mmru._id%>?_method=PUT" method="POST" novalidate class="validated-form">
                 <div class="mb-3">
                     <label class="form-label" for="ville">Ville</label>
-                    <input class="form-control" type="text" name="mmru[ville]" id="ville" value="<%= mmru.ville%>">
+                    <input class="form-control" type="text" name="mmru[ville]" id="ville" value="<%= mmru.ville%>" required>
+                    <div class="invalid-feedback">Requis*</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="adresse">Adresse</label>
-                    <input class="form-control" type="text" name="mmru[adresse]" id="adresse" value="<%= mmru.adresse%>">
+                    <input class="form-control" type="text" name="mmru[adresse]" id="adresse" value="<%= mmru.adresse%>" required>
+                    <div class="invalid-feedback">Requis*</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="nom">Nom</label>
-                    <input class="form-control" type="text" name="mmru[nom]" id="nom" value="<%= mmru.nom%>">
+                    <input class="form-control" type="text" name="mmru[nom]" id="nom" value="<%= mmru.nom%>" required>
+                    <div class="invalid-feedback">Requis*</div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="image">Url d'image</label>
