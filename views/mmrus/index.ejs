@@ -1,10 +1,44 @@
     <% layout('layouts/boilerplate')%>
-    <h1>Ma meilleure Résidence U</h1>
-    <div>
-        <a href="/mmrus/new">Ajouter</a>
-    </div>
+   
+   
+        <div class="row">
+            <div class="col-md-11">
+            <h1>Ma meilleure Résidence U</h1>
+            </div>
+        
+            <div class="col-md-1 mt-3">
+            
+                <a href="/mmrus/new">Ajouter</a>
+           
+            </div>
+        </div>
+ 
+ 
     <ul>
         <% for (let mmru of mmrus) {%>
-            <li> <a href="/mmrus/<%= mmru._id%>"><%= mmru.nom %></a> </li>
+           <div class="card mb-3">
+               <div class="row">
+                   <div class="col-md-4">
+                       <img class="img-fluid" alt="" src="<%=mmru.image%>">
+                   </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= mmru.nom%>
+                        </h5>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <%= mmru.adresse%>
+                            </small>
+                        </p>
+                        <p class="card-text">
+                            <%= mmru.description%>
+                        </p>
+                       <a class="btn btn-primary" href="/mmrus/<%= mmru._id%>">En savoir plus</a>
+                    </div>
+                </div>
+               </div>
+           </div>
+           
         <%} %>
     </ul>

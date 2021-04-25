@@ -1,17 +1,32 @@
 <% layout('layouts/boilerplate')%>
-    <form action="/mmrus" method="POST">
-        <div>
-            <label for="ville"></label>
-            <input type="text" name="mmru[ville]" id="ville" placeholder="Ville">
-        </div>
-        <div>
-            <label for="adresse"></label>
-            <input type="text" name="mmru[adresse]" id="adresse" placeholder="Adresse">
-        </div>
-        <div>
-            <label for="nom"></label>
-            <input type="text" name="mmru[nom]" id="nom" placeholder="Nom">
-        </div>
-        <button>Ajouter</button>
-    </form>
-    <a href="/mmrus">Les Résidences U</a>
+<div class="row">
+    <h1 class="text-center">Ajouter une Résidence U</h1>
+    <div class="col-6 offset-3">
+        <form action="/mmrus" method="POST">
+            <div class="mb-3">
+                <label class="form-label" for="ville">Ville</label>
+                <input class="form-control" type="text" name="mmru[ville]" id="ville" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="adresse">Adresse</label>
+                <input class="form-control" type="text" name="mmru[adresse]" id="adresse" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="nom">Nom</label>
+                <input class="form-control" type="text" name="mmru[nom]" id="nom" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="image">Url d'image</label>
+                <input class="form-control" type="text" name="mmru[image]" id="image">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="image">Description</label>
+                <textarea class="form-control" type="text" name="mmru[description]" id="description"></textarea>
+            </div>
+            <button class="btn btn-success mb-3">Ajouter</button>
+        </form>
+        <a href="/mmrus">Les Résidences U</a>
+    </div>
+</div>
+
+    
