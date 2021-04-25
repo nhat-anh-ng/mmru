@@ -59,6 +59,12 @@ app.put("/mmrus/:id", async (req, res) => {
   res.redirect(`/mmrus/${mmru._id}`);
 });
 
+app.delete("mmrus/:id", async (req, res) => {
+  const { id } = req.params;
+  await Mmru.findByIdAndDelete(id);
+  res.redirect("/mmrus");
+});
+
 app.listen(3000, () => {
   console.log("port 3000 here");
 });
