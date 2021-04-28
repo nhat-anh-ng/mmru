@@ -21,7 +21,22 @@
         integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
         crossorigin="anonymous"></script>
 
-        <script src="/javascripts/validateForms.js"></script>
+        <script>
+            (function () {
+                'use strict'
+                const forms = document.querySelectorAll('.validated-form')
+                Array.from(forms)
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+            })()
+                            </script>
 
  
 </body>
